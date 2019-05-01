@@ -11,10 +11,18 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 })
 export class SearchComponentComponent implements OnInit {
 
+  displayedColumns: string[] = ['make', 'modell', 'year'];
+  makes: Observable<string[]>;
+  years: Observable<number[]>;
+  models: Observable<Model[]>;
+  selectedMake = '';
+  selectedYear = 0;
+  unfiltered = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource = new MatTableDataSource<Model>();
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient) {
     this.makes = this.loadMakes();
     this.years = this.loadYears();
     this.dataSource.paginator = this.paginator;
@@ -24,51 +32,42 @@ export class SearchComponentComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  displayedColumns: string[] = ['make','modell','year'];
-
-  makes: Observable<String[]>;
-  years: Observable<Number[]>;
-  models: Observable<Model[]>;
-  
-
-  selectedMake: String = "";
-  selectedYear: Number = 0;
-
-  unfiltered: boolean = false;
-
-  loadMakes(){
-    return this.http.get<[String]>("https://vehicle-data.azurewebsites.net/api/makes");
+  loadMakes() {
+    return this.http.get<string[]>('https://vehicle-data.azurewebsites.net/api/makes');
   }
-  loadYears(){
-    return this.http.get<Number[]>("https://vehicle-data.azurewebsites.net/api/years");
+  loadYears() {
+    return this.http.get<number[]>('https://vehicle-data.azurewebsites.net/api/years');
   }
 
-  change(){
+  change() {
     this.dataSource.paginator = this.paginator;
-    console.log("paginator: "+this.dataSource.paginator);
-    if(this.unfiltered === false){
-      this.models = this.http.get<Model[]>("https://vehicle-data.azurewebsites.net/api/models?fetch=100");
+    console.log('paginator: ' + this.dataSource.paginator);
+    if (this.unfiltered === false) {
+      this.models = this.http.get<Model[]>('https://vehicle-data.azurewebsites.net/api/models?fetch=100');
     }
-    if(this.unfiltered === true){
-      this.selectedMake = "";
+    if (this.unfiltered === true) {
+      this.selectedMake = '';
       this.selectedYear = 0;
       this.models = null;
       this.dataSource = new MatTableDataSource();
       this.dataSource.paginator = null;
     }
-    if(this.selectedMake.length <= 0 && this.selectedYear > 0){
-      this.models = this.http.get<Model[]>("https://vehicle-data.azurewebsites.net/api/models?year="+this.selectedYear+"&fetch=100");
-    }else if(this.selectedMake.length > 0 && this.selectedYear <= 0){
-      this.models = this.http.get<Model[]>("https://vehicle-data.azurewebsites.net/api/models?make="+this.selectedMake);
-    }else if(this.selectedMake.length > 0 && this.selectedYear > 0){
-      this.models = this.http.get<Model[]>("https://vehicle-data.azurewebsites.net/api/models?make="+this.selectedMake+"&year="+this.selectedYear+"&fetch=100");
+    if (this.selectedMake.length <= 0 && this.selectedYear > 0) {
+      this.models = this.http.get<Model[]>('https://vehicle-data.azurewebsites.net/api/models?year=' + this.selectedYear + '&fetch=100');
+    } else if (this.selectedMake.length > 0 && this.selectedYear <= 0) {
+      this.models = this.http.get<Model[]>('https://vehicle-data.azurewebsites.net/api/models?make=' + this.selectedMake);
+    } else if (this.selectedMake.length > 0 && this.selectedYear > 0) {
+      this.models = this.http.get<Model[]>('https://vehicle-data.azurewebsites.net/api/models?make='
+        + this.selectedMake
+        + '&year='
+        + this.selectedYear
+        + '&fetch=100');
     }
-    if(this.models != null){
+    if (this.models != null) {
       this.models.subscribe(modelsArray => {
         this.dataSource.data = modelsArray;
         this.dataSource.paginator = this.paginator;
       });
-      
     }
   }
 

@@ -1,7 +1,7 @@
-export interface Model{
-    id: Number;
-    year: Number;
-    make: String;
-    model: String;
-    hasDetails: Number;
+export interface Model {
+    id: number;
+    year: number;
+    make: string;
+    model: string;
+    hasDetails: number;
 }

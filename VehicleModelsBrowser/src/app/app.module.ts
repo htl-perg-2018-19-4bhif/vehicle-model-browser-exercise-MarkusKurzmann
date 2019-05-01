@@ -9,7 +9,7 @@ import { SearchComponentComponent } from './search-component/search-component.co
 
 import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatOptionModule, MatSelectModule, MatButtonModule, MatTableModule, MatCheckboxModule, MatPaginatorModule} from '@angular/material'
+import {MatOptionModule, MatSelectModule, MatButtonModule, MatTableModule, MatCheckboxModule, MatPaginatorModule} from '@angular/material';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';

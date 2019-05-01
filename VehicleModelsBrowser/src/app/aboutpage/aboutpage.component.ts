@@ -8,7 +8,7 @@ import { NgxLoremIpsumService } from 'ngx-lorem-ipsum';
 })
 export class AboutpageComponent implements OnInit {
 
-  constructor(private service: NgxLoremIpsumService) { 
+  constructor(private service: NgxLoremIpsumService) {
   }
 
   ngOnInit() {
