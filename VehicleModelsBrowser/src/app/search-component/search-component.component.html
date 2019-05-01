@@ -1,0 +1,39 @@
+<h1>Car-Search</h1>
+<div>
+  <mat-form-field class="make">
+    <mat-select placeholder="Make" [(ngModel)]="selectedMake" (selectionChange)="change()">
+      <mat-option value="">--</mat-option>
+      <mat-option *ngFor="let make of makes | async" value="{{make}}">{{make}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Year" [(ngModel)]="selectedYear" (selectionChange)="change()">
+      <mat-option value=0></mat-option>
+      <mat-option *ngFor="let year of (years|async)" value="{{year}}">{{year}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-checkbox [(ngModel)]="unfiltered" (click)="change()">Show all models!</mat-checkbox>
+</div>
+<div>
+  <table mat-table [dataSource]="dataSource" class="table">
+    <ng-container matColumnDef="make">
+      <th mat-header-cell *matHeaderCellDef>Make</th>
+      <td mat-cell *matCellDef="let model"> {{model.make}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="modell">
+      <th mat-header-cell *matHeaderCellDef>Model</th>
+      <td mat-cell *matCellDef="let model"> {{model.model}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef>Year</th>
+      <td mat-cell *matCellDef="let model"> {{model.year}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
