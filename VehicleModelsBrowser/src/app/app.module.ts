@@ -12,11 +12,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOptionModule, MatSelectModule, MatButtonModule, MatTableModule, MatCheckboxModule, MatPaginatorModule} from '@angular/material'
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AboutpageComponent } from './aboutpage/aboutpage.component';
+
+import { NgxLoremIpsumModule } from 'ngx-lorem-ipsum';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponentComponent
+    SearchComponentComponent,
+    AboutpageComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatButtonModule,
     MatTableModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxLoremIpsumModule
   ],
   exports: [
     MatFormFieldModule,
